@@ -15,7 +15,7 @@ f_merge = get_content(f1) + get_content(f2)
 
 '''write into _site/index.html'''
 f3 = open('_site/index.html','w')
-f3.write(f_merge)
+f3.write("<!DOCTYPE html>\n<html>\n%s</html>" % f_merge)
 
 f3.close()
 f2.close()
