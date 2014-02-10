@@ -1,7 +1,7 @@
 
 '''import title'''
 import _config
-SITE_TITLE = _config.title
+SITE_TITLE = '<title>'+ _config.title + '</title>'
 print SITE_TITLE
 
 """open and read header and body html file"""
