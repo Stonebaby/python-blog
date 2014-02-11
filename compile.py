@@ -4,39 +4,32 @@ import _config
 SITE_TITLE = '<title>'+ _config.title + '</title>'
 print SITE_TITLE
 
-"""open and read header and body html file"""
+'''put all source files into one list, open and merge them together'''
+file_list = ["_templates/header.html", "_templates/body.html"]
 
-f1 = open('_templates/header.html', 'r')
-f2 = open('_templates/body.html', 'r')
-
-'''merge the content of two html files together'''
-def get_content(fil):
+def merge_file(file_list):
 	content = ''
-	for line in fil:
-		content += line 
-	return content + '\n'
-
-content_f1 = get_content(f1) 
-content_f2 = get_content(f2)
-
-'''insert title in content_f1, between the <head> '''
-def insert(str):
-	content_f1_spl = content_f1.split()
-	for index, item in enumerate(content_f1_spl):
-		if item == '<head>':
-			content_f1_spl.insert( index + 1, SITE_TITLE )
-	return ''.join(content_f1_spl)
+	for file_name in file_list:
+		with open(file_name, 'r') as fil:
+			for line in fil:
+				content += line
+	return content
 	
-content_f1_tit = insert(content_f1)	
+f_merge = merge_file(file_list)
 
-f_merge = content_f1_tit + content_f2
+'''insert title in f_merge, between the <head> '''
+def insert(str):
+	f_merge_spl = f_merge.split()
+	for index, item in enumerate(f_merge_spl):
+		if item == '<head>':
+			f_merge_spl.insert( index + 1, SITE_TITLE )
+	return ''.join(f_merge_spl)
+	
+f_merge_title = insert(f_merge)	
 
 '''write into _site/index.html'''
-f3 = open('_site/index.html','w')
-f3.write("<!DOCTYPE html>\n<html>\n%s</html>" % f_merge)
+output = open('_site/index.html','w')
+output.write("<!DOCTYPE html>\n<html>\n%s</html>" % f_merge_title)
 
-f3.close()
-f2.close()
-f1.close()
 
 

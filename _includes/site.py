@@ -1,4 +1,5 @@
 class Site(object):
 	pass
 
-	def 
+	def compile():
+		
